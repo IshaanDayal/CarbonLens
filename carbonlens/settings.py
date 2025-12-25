@@ -130,7 +130,7 @@ REST_FRAMEWORK = {
 # CORS settings
 CORS_ALLOWED_ORIGINS = os.getenv('CORS_ALLOWED_ORIGINS', 'http://localhost:3000,http://localhost:8501').split(',')
 CORS_ALLOW_CREDENTIALS = True
-CORS_ALLOW_ALL_ORIGINS = DEBUG  # Allow all origins in debug mode
+CORS_ALLOW_ALL_ORIGINS = True  # Allow all origins in debug mode
 
 # Application-specific settings
 OWID_DATA_PATH = os.getenv('DATABASE_PATH', str(BASE_DIR / 'data' / 'owid-co2-data.csv'))
@@ -138,3 +138,4 @@ OPENAI_API_KEY = os.getenv('OPENAI_API_KEY', '')
 # GEMINI_API_KEY = os.getenv('GEMINI_API_KEY', '')  # COMMENTED OUT - Using OpenAI instead
 NEWS_API_KEY = os.getenv('NEWS_API_KEY', '')
 
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
