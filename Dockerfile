@@ -34,6 +34,8 @@ EXPOSE 8000
 # Use an entrypoint to run migrations/collectstatic then start Gunicorn
 ENTRYPOINT ["/app/entrypoint.sh"]
 
-# Default command runs Gunicorn for production
-CMD ["gunicorn", "carbonlens.wsgi:application", "--bind", "0.0.0.0:8000", "--workers", "3"]
+# Default command runs Gunicorn for production using the Python module
+# Use `python -m gunicorn` to avoid relying on PATH when the gunicorn
+# executable isn't found at runtime in some environments.
+CMD ["python", "-m", "gunicorn", "carbonlens.wsgi:application", "--bind", "0.0.0.0:8000", "--workers", "3"]
 
