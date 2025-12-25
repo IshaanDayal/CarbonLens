@@ -37,5 +37,9 @@ ENTRYPOINT ["/app/entrypoint.sh"]
 # Default command runs Gunicorn for production using the Python module
 # Use `python -m gunicorn` to avoid relying on PATH when the gunicorn
 # executable isn't found at runtime in some environments.
-CMD ["sh", "-c", "python -m gunicorn carbonlens.wsgi:application --bind 0.0.0.0:${PORT:-8000} --workers 3"]
+ENV GUNICORN_WORKERS=1
+ENV GUNICORN_TIMEOUT=120
+
+# Run gunicorn via python module; allow overriding workers and timeout via env vars
+CMD ["sh", "-c", "python -m gunicorn carbonlens.wsgi:application --bind 0.0.0.0:${PORT:-8000} --workers ${GUNICORN_WORKERS} --timeout ${GUNICORN_TIMEOUT}"]
 
